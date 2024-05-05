@@ -1,0 +1,45 @@
+install.packages("dplyr")
+install.packages("readxl")
+install.packages("openxlsx")
+install.packages("ggplot2")
+install.packages("corrplot")
+install.packages("corrgram")
+install.packages("caTools")
+library(dplyr)
+library(readxl)
+library(openxlsx)
+library(ggplot2)
+library(corrplot)
+library(corrgram)
+library(caTools)
+
+df2 <- read.xlsx("C:\\Users\\Matrim\\Desktop\\Универ 2.0\\Диплом\\Data_students.xlsx")
+head(df)
+tail(df)
+str(df)
+summary(df)
+#df$Score <- as.numeric(df$Score)
+#class(df$Score)
+
+log.model <- glm(formula=Join ~ . , family = binomial(link='logit'),data = df2)
+summary(log.model)
+
+set.seed(101)
+
+split = sample.split(df2$Join, SplitRatio = 0.70)
+
+final.train = subset(df2, split == TRUE)
+final.test = subset(df2, split == FALSE)
+
+final.log.model <- glm(formula=Join ~ . , family = binomial(link='logit'),data = final.train)
+summary(final.log.model)
+
+fitted.probabilities <- predict(final.log.model,newdata=final.test,type='response')
+fitted.results <- ifelse(fitted.probabilities > 0.5,1,0)
+misClasificError <- mean(fitted.results != final.test$Join)
+print(paste('Accuracy',1-misClasificError))
+table(final.test$Join, fitted.probabilities > 0.5)
+
+
+
+
