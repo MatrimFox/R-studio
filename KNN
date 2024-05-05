@@ -1,0 +1,26 @@
+install("class")
+library(class)
+
+df2 <- read.xlsx("C:\\Users\\Matrim\\Desktop\\Универ 2.0\\Диплом\\Data (description) (2).xlsx")
+
+set.seed(101)
+split <- sample.split(df$Join, SplitRatio = 0.70)
+train <- subset(df, split == TRUE)
+test <- subset(df, split == FALSE)
+
+k <- 5
+knn_model <- knn(train[, -1], test[, -1], train$Join, k)
+
+knn_model_numeric <- as.numeric(as.character(knn_model))
+
+misClasificError <- mean(knn_model_numeric != test$Join)
+accuracy <- 1 - misClasificError
+print(paste('Accuracy:', accuracy))
+
+rss <- sum((knn_model_numeric - test$Join)^2)
+tss <- sum((mean(test$Join) - test$Join)^2)
+rsquared <- 1 - (rss / tss)
+print(paste('R-squared:', rsquared))
+
+rmse <- sqrt(mean((knn_model_numeric - test$Join)^2))
+print(paste('RMSE:', rmse))
