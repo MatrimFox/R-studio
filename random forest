@@ -1,0 +1,24 @@
+install.packages("caret")
+install.packages("caTools")
+install.packages("randomForest")
+library(caTools)
+library(randomForest)
+library(caret)
+
+set.seed(101)
+split <- sample.split(df$Join, SplitRatio = 0.70)
+train <- subset(df2, split == TRUE)
+test <- subset(df2, split == FALSE)
+
+train$Join <- as.factor(train$Join)
+test$Join <- as.factor(test$Join)
+
+rf_model <- randomForest(Join ~ ., data = train)
+
+predictions <- predict(rf_model, test)
+
+rmse <- sqrt(mean((as.numeric(as.character(predictions)) - as.numeric(as.character(test$Join)))^2))
+print(paste('RMSE:', rmse))
+
+conf_matrix <- confusionMatrix(predictions, test$Join)
+print(conf_matrix$overall['Accuracy'])
