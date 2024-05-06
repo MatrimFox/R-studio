@@ -1,0 +1,29 @@
+install.packages("rpart")
+install.packages("caret")
+install.packages("readxl")
+install.packages("openxlsx")
+library(readxl)
+library(openxlsx)
+library(rpart)
+library(caret)
+
+# Завантаження та підготовка даних
+df2 <- read.xlsx("C:\\Users\\Matrim\\Desktop\\Универ 2.0\\Диплом\\Data_students.xlsx")
+
+
+set.seed(101)
+split <- caret::createDataPartition(df2$Join, p = 0.7, list = FALSE)
+train <- df2[split, ]
+test <- df2[-split, ]
+train$Join <- as.factor(train$Join)
+test$Join <- as.factor(test$Join)
+
+tree_model <- rpart(Join ~ ., data = train)
+
+predictions <- predict(tree_model, test, type = "class")
+
+accuracy <- sum(predictions == test$Join) / length(test$Join)
+print(paste('Accuracy:', accuracy))
+
+rmse <- sqrt(mean((as.numeric(as.character(predictions)) - as.numeric(as.character(test$Join)))^2))
+print(paste('RMSE:', rmse))
