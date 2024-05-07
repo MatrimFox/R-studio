@@ -8,7 +8,7 @@ library(rpart)
 library(caret)
 
 # Завантаження та підготовка даних
-df <- read.xlsx("C:\\Users\\Matrim\\Desktop\\Универ 2.0\\Диплом\\Data_students.xlsx")
+df <- read.xlsx("C:\\Users\\Matrim\\Desktop\\Универ 2.0\\Диплом\\Data2.xlsx")
 
 
 set.seed(101)
