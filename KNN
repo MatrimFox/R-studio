@@ -1,14 +1,14 @@
 install("class")
 library(class)
 
-df2 <- read.xlsx("C:\\Users\\Matrim\\Desktop\\Универ 2.0\\Диплом\\Data_students.xlsx")
+df <- read.xlsx("C:\\Users\\Matrim\\Desktop\\Универ 2.0\\Диплом\\Data_students.xlsx")
 
 set.seed(101)
 split <- sample.split(df$Join, SplitRatio = 0.70)
 train <- subset(df, split == TRUE)
 test <- subset(df, split == FALSE)
 
-k <- 5
+k <- 3
 knn_model <- knn(train[, -1], test[, -1], train$Join, k)
 
 knn_model_numeric <- as.numeric(as.character(knn_model))
