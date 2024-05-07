@@ -13,7 +13,7 @@ library(corrplot)
 library(corrgram)
 library(caTools)
 
-df <- read.xlsx("C:\\Users\\Matrim\\Desktop\\Универ 2.0\\Диплом\\Data_students.xlsx")
+df <- read.xlsx("C:\\Users\\Matrim\\Desktop\\Универ 2.0\\Диплом\\Data2.xlsx")
 head(df)
 tail(df)
 str(df)
