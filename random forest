@@ -1,12 +1,17 @@
 install.packages("caret")
 install.packages("caTools")
 install.packages("randomForest")
+install.packages("readxl")
+install.packages("openxlsx")
 library(caTools)
 library(randomForest)
 library(caret)
+library(openxlsx)
+library(readxl)
 
+df2 <- read.xlsx("C:\\Users\\Matrim\\Desktop\\Универ 2.0\\Диплом\\Data2.xlsx")
 set.seed(101)
-split <- sample.split(df$Join, SplitRatio = 0.70)
+split <- sample.split(df2$Join, SplitRatio = 0.70)
 train <- subset(df2, split == TRUE)
 test <- subset(df2, split == FALSE)
 
