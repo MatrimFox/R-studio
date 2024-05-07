@@ -1,7 +1,7 @@
 install("class")
 library(class)
 
-df <- read.xlsx("C:\\Users\\Matrim\\Desktop\\Универ 2.0\\Диплом\\Data_students.xlsx")
+df <- read.xlsx("C:\\Users\\Matrim\\Desktop\\Универ 2.0\\Диплом\\Data2.xlsx")
 
 set.seed(101)
 split <- sample.split(df$Join, SplitRatio = 0.70)
