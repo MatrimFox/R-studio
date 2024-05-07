@@ -5,6 +5,8 @@ install.packages("ggplot2")
 install.packages("corrplot")
 install.packages("corrgram")
 install.packages("caTools")
+install.packages("car")
+library(car)
 library(dplyr)
 library(readxl)
 library(openxlsx)
@@ -22,21 +24,21 @@ summary(df)
 #class(df$Score)
 
 set.seed(101) 
-sample <- sample.split(df2$Age, SplitRatio = 0.70) # SplitRatio = percent of sample==TRUE
-train = subset(df2, sample == TRUE)
-test = subset(df2, sample == FALSE)
+sample <- sample.split(df$Age, SplitRatio = 0.70) # SplitRatio = percent of sample==TRUE
+train = subset(df, sample == TRUE)
+test = subset(df, sample == FALSE)
 
 model <- lm(Join ~ .,train)
 summary(model)
 
 
-df2 <- df[,-1]
-head(df2)
-num.cols <- sapply(df2, is.numeric)
-cor.data <- cor(df2[,num.cols])
+df <- df[,-1]
+head(df)
+num.cols <- sapply(df, is.numeric)
+cor.data <- cor(df[,num.cols])
 cor.data
 
-df2 <- read.xlsx("C:\\Users\\Matrim\\Desktop\\Универ 2.0\\Диплом\\Data_students.xlsx")
+df <- read.xlsx("C:\\Users\\Matrim\\Desktop\\Универ 2.0\\Диплом\\Data2.xlsx")
 head(df)
 tail(df)
 str(df)
@@ -45,9 +47,9 @@ summary(df)
 #class(df$Score)
 
 set.seed(101) 
-sample <- sample.split(df2$Age, SplitRatio = 0.70) # SplitRatio = percent of sample==TRUE
-train = subset(df2, sample == TRUE)
-test = subset(df2, sample == FALSE)
+sample <- sample.split(df$Age, SplitRatio = 0.70) # SplitRatio = percent of sample==TRUE
+train = subset(df, sample == TRUE)
+test = subset(df, sample == FALSE)
 
 model <- lm(Join ~ .,train)
 summary(model)
@@ -57,10 +59,10 @@ predictions <- predict(model, newdata = test)
 rmse <- sqrt(mean((test$Join - predictions)^2))
 print(paste('RMSE:', rmse))
 
-df2 <- df[,-1]
+df <- df[,-1]
 head(df2)
-num.cols <- sapply(df2, is.numeric)
-cor.data <- cor(df2[,num.cols])
+num.cols <- sapply(df, is.numeric)
+cor.data <- cor(df[,num.cols])
 cor.data
 
 vif_values <- vif(model)
